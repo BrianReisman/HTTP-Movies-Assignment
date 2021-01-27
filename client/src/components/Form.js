@@ -6,26 +6,26 @@ const initState = {
   director: "",
   metascore: "",
   stars: [],
-  id: '',
+  id: "",
 };
 
 const Form = (props) => {
   const [form, setForm] = useState(initState);
-console.log(form)
   const { id } = props.match.params;
+  const { push } = props.history;
 
   //When this component renders, I want to make an a get request for THIS movie's data
-  useEffect(()=>{
+  useEffect(() => {
     axios
-    //*I want to put in there what I pluck from the pathname
+      //*I want to put in there what I pluck from the pathname
       .get(`http://localhost:5000/api/movies/${id}`)
-      .then(res => {
-        setForm(res.data)
+      .then((res) => {
+        setForm(res.data);
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const changeHandler = (e) => {
     setForm({
@@ -36,6 +36,16 @@ console.log(form)
 
   const submitHandler = (e) => {
     e.preventDefault();
+    axios
+      .put(`http://localhost:5000/api/movies/${id}`, form)
+      .then((res) => {
+        console.log(res);
+        setForm(initState);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    push("/");
   };
 
   return (
