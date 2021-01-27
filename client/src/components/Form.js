@@ -13,7 +13,7 @@ const Form = (props) => {
   const [form, setForm] = useState(initState);
   const { id } = props.match.params;
   const { push } = props.history;
-
+console.log(props)
   //When this component renders, I want to make an a get request for THIS movie's data
   useEffect(() => {
     axios
@@ -40,12 +40,21 @@ const Form = (props) => {
       .put(`http://localhost:5000/api/movies/${id}`, form)
       .then((res) => {
         console.log(res);
-        setForm(initState);
+        // setForm(initState);
+        props.setMovieList(props.movieList.map((mv)=>{
+          if(mv.id === form.id){
+            return form;
+          } else {
+            return mv
+          }
+        }))
       })
       .catch((err) => {
         console.log(err);
       });
-    push("/");
+
+      push("/");
+
   };
 
   return (

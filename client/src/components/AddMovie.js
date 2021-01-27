@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 // import e from "express";
 
 const initState = {
   title: "",
   director: "",
   metascore: "",
-  stars: '',
+  stars: "",
 };
 
-const AddMovie = () => {
+const AddMovie = (props) => {
   const [form, setForm] = useState(initState);
-  console.log(form);
+  const { push } = useHistory();
 
   const changeHandler = (e) => {
     setForm({
@@ -21,26 +23,27 @@ const AddMovie = () => {
   };
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const string = form.stars
-    const arrayOfStars = string.split(', ')
+    const string = form.stars;
+    const arrayOfStars = string.split(", ");
 
     const formattedForm = {
       ...form,
       id: Date.now(),
-      stars: arrayOfStars
-    }
+      stars: arrayOfStars,
+    };
 
     axios
-      .post('http://localhost:5000/api/movies', formattedForm)
-      .then(res => {
-        console.log(res)
+      .post("http://localhost:5000/api/movies", formattedForm)
+      .then((res) => {
+        props.setMovieList(res.data);
+        push("/");
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <form onSubmit={submitHandler}>
