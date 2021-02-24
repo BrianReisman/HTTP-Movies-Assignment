@@ -31,21 +31,21 @@
   metascore: 89,
   stars: ['Kurt Russell', 'Bill Paxton', 'Sam Elliot'],
 } -->
-```
+<!-- ``` -->
 
-#### Deleting A Movie:
+<!-- #### Deleting A Movie: -->
 
-- Add a delete button in the movie component that makes a DELETE request
-- When the call comes back successfully, route the user to `/` where they will see the updated movie list without the deleted movie
+<!-- - Add a delete button in the movie component that makes a DELETE request -->
+<!-- - When the call comes back successfully, route the user to `/` where they will see the updated movie list without the deleted movie -->
 
 
 
 #### Adding A Movie:
 
-- Add a route at the path `/add-movie`
-- Create a component with a form to add a new movie
-- Each created movie should have the following format (notice the array of strings - this will test your JS skills, so work through it methodically)
-- The form should make a POST request to the server when submitted
+<!-- - Add a route at the path `/add-movie` -->
+<!-- - Create a component with a form to add a new movie -->
+<!-- - Each created movie should have the following format (notice the array of strings - this will test your JS skills, so work through it methodically) -->
+<!-- - The form should make a POST request to the server when submitted -->
 - When the call comes back successfully, reset your form state and route the user to `/movies`
 
 Movie object format:

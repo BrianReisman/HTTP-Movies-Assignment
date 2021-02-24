@@ -14,13 +14,14 @@ const UpdateForm = (props) => {
   const { id } = useParams();
   const { push } = useHistory();
   console.log(form);
+
   useEffect(() => {
     props.movieList.forEach((movie) => {
       if (+movie.id === +id) {
         setForm(movie);
       }
     });
-  }, []);
+  }, [id]);
 
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
