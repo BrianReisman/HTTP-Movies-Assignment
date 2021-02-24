@@ -41,12 +41,11 @@ const UpdateForm = (props) => {
           }
         });
         props.setMovieList(newState);
-        push("/");
+        push(`/`);
       })
       .catch((err) => {
         console.log(err);
       });
-    // setForm(initState);
   };
 
   return (
