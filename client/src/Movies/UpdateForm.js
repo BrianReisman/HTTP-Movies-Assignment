@@ -6,7 +6,7 @@ const initState = {
   title: "",
   director: "",
   metascore: "",
-  stars: [],
+  stars: "",
 };
 
 const UpdateForm = (props) => {
@@ -18,7 +18,9 @@ const UpdateForm = (props) => {
   useEffect(() => {
     props.movieList.forEach((movie) => {
       if (+movie.id === +id) {
-        setForm(movie);
+        const stringify = { ...movie, stars: movie.stars.join(", ") };
+        // console.log(stringify)
+        setForm(stringify);
       }
     });
   }, [id]);
@@ -29,11 +31,12 @@ const UpdateForm = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    axios
-      .put(`http://localhost:5000/api/movies/${id}`, form)
-      .then((res) => {
-        // console.log(res.data);
 
+    const formattedData = { ...form, stars: form.stars.split(",") };
+
+    axios
+      .put(`http://localhost:5000/api/movies/${id}`, formattedData)
+      .then((res) => {
         const newState = props.movieList.map((movie) => {
           if (+movie.id === +id) {
             return res.data;
@@ -78,9 +81,15 @@ const UpdateForm = (props) => {
           onChange={changeHandler}
         />
       </label>
-      {/* <label htmlFor="stars">
-        <input type="text" id="stars" placeholder="stars" value="" />
-      </label> */}
+      <label htmlFor="stars">
+        <input
+          type="text"
+          id="stars"
+          placeholder="stars: separate each with ,"
+          value={form.stars}
+          onChange={changeHandler}
+        />
+      </label>
       <button>save updates</button>
     </form>
   );
